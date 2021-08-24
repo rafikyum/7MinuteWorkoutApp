@@ -3,7 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/rafikyum/AndroidStudioProjects/7MinuteWorkout/app/src/main/res/drawable/circular_progress_bar.xml" value="0.5277777777777778" />
+        <entry key="..\:/Users/rafikyum/AndroidStudioProjects/7MinuteWorkout/app/src/main/res/drawable/circular_progress_gray.xml" value="0.46111111111111114" />
         <entry key="..\:/Users/rafikyum/AndroidStudioProjects/7MinuteWorkout/app/src/main/res/drawable/item_circular_color_accent_border.xml" value="0.5277777777777778" />
+        <entry key="..\:/Users/rafikyum/AndroidStudioProjects/7MinuteWorkout/app/src/main/res/drawable/item_circular_colour_accent_background.xml" value="0.5277777777777778" />
         <entry key="..\:/Users/rafikyum/AndroidStudioProjects/7MinuteWorkout/app/src/main/res/drawable/item_color_accent_border_ripple_backgroudn.xml" value="0.5277777777777778" />
         <entry key="..\:/Users/rafikyum/AndroidStudioProjects/7MinuteWorkout/app/src/main/res/layout/activity_excerise.xml" value="0.4116847826086957" />
         <entry key="..\:/Users/rafikyum/AndroidStudioProjects/7MinuteWorkout/app/src/main/res/layout/activity_main.xml" value="0.3561643835616438" />
