@@ -1,12 +1,17 @@
 package com.example.a7minuteworkout
 
+import android.media.MediaPlayer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.speech.tts.TextToSpeech
+import android.util.Log
 import android.view.View
 import android.widget.*
 import androidx.appcompat.widget.Toolbar
 import org.w3c.dom.Text
+import java.util.*
+import kotlin.collections.ArrayList
 
 class ExceriseActivity : AppCompatActivity() {
 
@@ -20,23 +25,24 @@ class ExceriseActivity : AppCompatActivity() {
     private var exerciseList: ArrayList<ExerciseModel>? = null
     private var currentExercisePosition = -1
 
+    private var  player: MediaPlayer? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_excerise)
 
         val toolbar_exericse_activity: Toolbar = findViewById(R.id.toolbar_exercise_activity)
-        setSupportActionBar(toolbar_exericse_activity)          // brings fourth toolbar activity
-
+        setSupportActionBar(toolbar_exericse_activity)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         toolbar_exericse_activity.setNavigationOnClickListener {
             onBackPressed()
         }
 
-        setUpRestView()
-
         exerciseList = Constants.defaultExerciseList()
+
+        setUpRestView()
     }
 
 
@@ -51,20 +57,38 @@ class ExceriseActivity : AppCompatActivity() {
             exerciseProgress = 0
         }
 
+        if (player != null) {
+            player!!.stop()
+        }
+
         super.onDestroy()
     }
 
-    private fun setUpRestView() {
-        val llRestView : LinearLayout = findViewById(R.id.llRestView)
-        val llExerciseView: LinearLayout = findViewById(R.id.llExerciseView)
-        llRestView.visibility = View.GONE
-        llExerciseView.visibility = View.VISIBLE
 
+    private fun setUpRestView() {
+
+        try {
+            player = MediaPlayer.create(applicationContext, R.raw.press_start)
+            player!!.isLooping = false
+            player!!.start()
+
+        }catch (e: Exception){
+            e.printStackTrace()
+        }
+
+        val llRestView:LinearLayout = findViewById(R.id.llRestView)
+        val llExerciseView:LinearLayout = findViewById(R.id.llExerciseView)
+
+        llRestView.visibility = View.VISIBLE
+        llExerciseView.visibility = View.GONE
 
         if (restTimer != null) {
             restTimer!!.cancel()        // set up rest view if the rest timer is not null
             restProgress = 0;
         }
+
+        val tvUpcomingExerciseName: TextView = findViewById(R.id.tvUpcomingExerciseName)
+        tvUpcomingExerciseName.text = exerciseList!![currentExercisePosition + 1].getName()
 
         setRestProgressBar()        // once the timer has been reset bring fourth the progress bar
     }
@@ -75,7 +99,7 @@ class ExceriseActivity : AppCompatActivity() {
         val tvTimer: TextView = findViewById(R.id.tvTimer)          // instances of the timer and progress bar from the xml file
         progressBar.progress = restProgress     // progress bar of xml is set to an instance of the rest progress created in activity
         restTimer = object : CountDownTimer(10000, 1000) {  // rest timer becomes countdown timer and counts down second at a time
-            override fun onTick(p0: Long) { // per tick add to the progress of rest bar
+            override fun onTick(millisUnitlFinished: Long) { // per tick add to the progress of rest bar
                 restProgress++
                 progressBar.progress = 10 - restProgress     // makes the actual timer go down on the xml side of things
                 tvTimer.text = (10 - restProgress).toString()   // display the text view and the time on it
@@ -88,7 +112,6 @@ class ExceriseActivity : AppCompatActivity() {
             }
         }.start()
     }
-
 
 
     private fun setupExerciseView() {
@@ -112,6 +135,9 @@ class ExceriseActivity : AppCompatActivity() {
         val tvExerciseName: TextView = findViewById(R.id.tvExerciseName)
         tvExerciseName.text = exerciseList!![currentExercisePosition].getName()
 
+
+
+        setExerciseProgressBar()
     }
 
 
@@ -141,6 +167,8 @@ class ExceriseActivity : AppCompatActivity() {
             }
         }.start()
     }
+
+
 }
 
 
