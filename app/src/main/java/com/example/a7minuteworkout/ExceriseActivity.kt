@@ -9,6 +9,8 @@ import android.util.Log
 import android.view.View
 import android.widget.*
 import androidx.appcompat.widget.Toolbar
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import org.w3c.dom.Text
 import java.util.*
 import kotlin.collections.ArrayList
@@ -26,6 +28,7 @@ class ExceriseActivity : AppCompatActivity() {
     private var currentExercisePosition = -1
 
     private var  player: MediaPlayer? = null
+    private var exerciseAdapter: ExerciseStatusAdapter? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,6 +46,8 @@ class ExceriseActivity : AppCompatActivity() {
         exerciseList = Constants.defaultExerciseList()
 
         setUpRestView()
+
+        setupExerciseStatusRecyclerView()
     }
 
 
@@ -166,6 +171,18 @@ class ExceriseActivity : AppCompatActivity() {
                }
             }
         }.start()
+    }
+
+    private fun setupExerciseStatusRecyclerView() {
+
+        val rvExerciseStatus : RecyclerView = findViewById(R.id.rvExerciseStatus)
+
+        rvExerciseStatus.layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+
+        exerciseAdapter = ExerciseStatusAdapter(exerciseList!!, this)
+
+        rvExerciseStatus.adapter = exerciseAdapter
     }
 
 
