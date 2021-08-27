@@ -19,6 +19,12 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        val llBMI : LinearLayout = findViewById(R.id.llBMI)
+        llBMI.setOnClickListener {
+            // Launching the BMI Activity
+            val intent = Intent(this, BMIActivity::class.java)
+            startActivity(intent)
+        }
 
 
 

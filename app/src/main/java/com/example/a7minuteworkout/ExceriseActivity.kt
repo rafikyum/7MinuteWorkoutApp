@@ -1,5 +1,6 @@
 package com.example.a7minuteworkout
 
+import android.app.Dialog
 import android.media.MediaPlayer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -11,6 +12,7 @@ import android.widget.*
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.android.synthetic.main.dialog_custom_bacl_information.*
 import org.w3c.dom.Text
 import java.util.*
 import kotlin.collections.ArrayList
@@ -18,7 +20,8 @@ import kotlin.collections.ArrayList
 class ExceriseActivity : AppCompatActivity() {
 
     private var restTimer: CountDownTimer? = null
-    private var restProgress = 0                        // timers and progress created
+    private var restProgress = 0
+    private var restTimerDuration : Long = 10// timers and progress created
 
     private var exerciseTimer: CountDownTimer? = null
     private var exerciseProgress = 0
@@ -40,7 +43,7 @@ class ExceriseActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         toolbar_exericse_activity.setNavigationOnClickListener {
-            onBackPressed()
+            customDialogForBackButton()
         }
 
         exerciseList = Constants.defaultExerciseList()
@@ -113,6 +116,8 @@ class ExceriseActivity : AppCompatActivity() {
 
             override fun onFinish() {
                 currentExercisePosition++
+                exerciseList!![currentExercisePosition].setIsSelected(true)
+                exerciseAdapter!!.notifyDataSetChanged()
                 setupExerciseView()     // call the exercise view when the rest side of things is finished
             }
         }.start()
@@ -183,6 +188,19 @@ class ExceriseActivity : AppCompatActivity() {
         exerciseAdapter = ExerciseStatusAdapter(exerciseList!!, this)
 
         rvExerciseStatus.adapter = exerciseAdapter
+    }
+
+    private fun customDialogForBackButton() {
+        val customDialog = Dialog(this)
+        customDialog.setContentView(R.layout.dialog_custom_bacl_information)
+        customDialog.tvYes.setOnClickListener{
+            finish()
+            customDialog.dismiss()
+        }
+        customDialog.tvNo.setOnClickListener{
+            customDialog.dismiss()
+        }
+            customDialog.show()
     }
 
 
