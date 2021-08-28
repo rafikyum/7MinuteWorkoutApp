@@ -1,36 +1,35 @@
 package com.example.a7minuteworkout
 
 import android.app.Dialog
+import android.content.Intent
 import android.media.MediaPlayer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.speech.tts.TextToSpeech
-import android.util.Log
+
 import android.view.View
 import android.widget.*
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.dialog_custom_bacl_information.*
-import org.w3c.dom.Text
+
 import java.util.*
 import kotlin.collections.ArrayList
 
-class ExceriseActivity : AppCompatActivity() {
+class ExerciseActivity : AppCompatActivity() {
 
     private var restTimer: CountDownTimer? = null
     private var restProgress = 0
-    private var restTimerDuration : Long = 10// timers and progress created
 
     private var exerciseTimer: CountDownTimer? = null
     private var exerciseProgress = 0
-    private var exerciseTimeDuration: Long = 30
 
     private var exerciseList: ArrayList<ExerciseModel>? = null
     private var currentExercisePosition = -1
 
     private var  player: MediaPlayer? = null
+
     private var exerciseAdapter: ExerciseStatusAdapter? = null
 
 
@@ -57,11 +56,11 @@ class ExceriseActivity : AppCompatActivity() {
     override fun onDestroy() {
         if (restTimer != null) {
             restTimer!!.cancel()
-            restProgress = 0        // if the timer is over cancel the timer and reset progress of the timer
+            restProgress = 0
         }
 
         if (exerciseTimer != null) {
-            exerciseTimer!!.cancel()  // if exercise timer is over end the timer and reset the progress of the timer
+            exerciseTimer!!.cancel()
             exerciseProgress = 0
         }
 
@@ -91,34 +90,32 @@ class ExceriseActivity : AppCompatActivity() {
         llExerciseView.visibility = View.GONE
 
         if (restTimer != null) {
-            restTimer!!.cancel()        // set up rest view if the rest timer is not null
-            restProgress = 0;
+            restTimer!!.cancel()
+            restProgress = 0
         }
 
         val tvUpcomingExerciseName: TextView = findViewById(R.id.tvUpcomingExerciseName)
         tvUpcomingExerciseName.text = exerciseList!![currentExercisePosition + 1].getName()
 
-        setRestProgressBar()        // once the timer has been reset bring fourth the progress bar
+        setRestProgressBar()
     }
 
 
     private fun setRestProgressBar() {
         val progressBar: ProgressBar = findViewById(R.id.progressBar)
-        val tvTimer: TextView = findViewById(R.id.tvTimer)          // instances of the timer and progress bar from the xml file
-        progressBar.progress = restProgress     // progress bar of xml is set to an instance of the rest progress created in activity
-        restTimer = object : CountDownTimer(10000, 1000) {  // rest timer becomes countdown timer and counts down second at a time
-            override fun onTick(millisUnitlFinished: Long) { // per tick add to the progress of rest bar
+        val tvTimer: TextView = findViewById(R.id.tvTimer)
+        progressBar.progress = restProgress
+        restTimer = object : CountDownTimer(10000, 1000) {
+            override fun onTick(p0: Long) {
                 restProgress++
-                progressBar.progress = 10 - restProgress     // makes the actual timer go down on the xml side of things
-                tvTimer.text = (10 - restProgress).toString()   // display the text view and the time on it
-
-            }
+                progressBar.progress = 10 - restProgress
+                tvTimer.text = (10 - restProgress).toString()               }
 
             override fun onFinish() {
                 currentExercisePosition++
                 exerciseList!![currentExercisePosition].setIsSelected(true)
                 exerciseAdapter!!.notifyDataSetChanged()
-                setupExerciseView()     // call the exercise view when the rest side of things is finished
+                setupExerciseView()
             }
         }.start()
     }
@@ -127,18 +124,18 @@ class ExceriseActivity : AppCompatActivity() {
     private fun setupExerciseView() {
 
         val llRestView: LinearLayout = findViewById(R.id.llRestView)
-        val llExerciseView: LinearLayout = findViewById(R.id.llExerciseView)        // instances of the rest view and exercise from the xml side
+        val llExerciseView: LinearLayout = findViewById(R.id.llExerciseView)
 
         llRestView.visibility = View.GONE
-        llExerciseView.visibility = View.VISIBLE    // gets rid of the rest view and brings fourth the exercise view
+        llExerciseView.visibility = View.VISIBLE
 
 
         if (exerciseTimer != null) {
-            exerciseTimer!!.cancel()    // if the exercise timer for some reason isn't null then reset everything , more so a precaution
+            exerciseTimer!!.cancel()
             exerciseProgress = 0
         }
 
-        setExerciseProgressBar()    // bring fourth the exercise progress bar method
+        setExerciseProgressBar()
 
         val ivImage : ImageView = findViewById(R.id.ivImage)
         ivImage.setImageResource(exerciseList!![currentExercisePosition].getImage())
@@ -154,23 +151,28 @@ class ExceriseActivity : AppCompatActivity() {
     private fun setExerciseProgressBar() {
 
         val progressBarExercise: ProgressBar = findViewById(R.id.progressBarExercise)
-        val tvExerciseTimer: TextView = findViewById(R.id.tvExerciseTimer)              // instances of the exercise time and progress bar time from the xml side
+        val tvExerciseTimer: TextView = findViewById(R.id.tvExerciseTimer)
 
-        progressBarExercise.progress = exerciseProgress     // progress of exercise
+        progressBarExercise.progress = exerciseProgress
 
-        exerciseTimer = object : CountDownTimer(30000, 1000) {  // exercise timer becomes count down timer and creates the timer
-            override fun onTick(millisUntilFinished: Long) {        // creates displays the timer going down basically
+        exerciseTimer = object : CountDownTimer(30000, 1000) {
+            override fun onTick(p0: Long) {
                 exerciseProgress++
-                progressBarExercise.progress = 30 - exerciseProgress
-                tvExerciseTimer.text = (30 - exerciseProgress).toString()
+                progressBarExercise.progress = 10 - exerciseProgress
+                tvExerciseTimer.text = (10 - exerciseProgress).toString()
             }
-
             override fun onFinish() {   // when it's finished display message that the exercise is over
+                exerciseList!![currentExercisePosition].setIsSelected(false)
+                exerciseList!![currentExercisePosition].setIsCompleted(true)
+                exerciseAdapter!!.notifyDataSetChanged()
                if(currentExercisePosition < 11) {
                    setUpRestView()
                } else {
+                   finish()
+                   val intent = Intent(this@ExerciseActivity, FinishActivity::class.java)
+                   startActivity(intent)
                    Toast.makeText(
-                       this@ExceriseActivity,
+                       this@ExerciseActivity,
                    "Congratulations! You have completed teh 7 minute workout",
                    Toast.LENGTH_SHORT ).show()
                }

@@ -16,12 +16,13 @@
         <entry key="..\:/Users/rafikyum/AndroidStudioProjects/7MinuteWorkout/app/src/main/res/drawable/item_color_accent_border_ripple_backgroudn.xml" value="0.5277777777777778" />
         <entry key="..\:/Users/rafikyum/AndroidStudioProjects/7MinuteWorkout/app/src/main/res/layout/activity_bmi.xml" value="0.23278985507246377" />
         <entry key="..\:/Users/rafikyum/AndroidStudioProjects/7MinuteWorkout/app/src/main/res/layout/activity_bmiactivity.xml" value="0.2631712259371834" />
-        <entry key="..\:/Users/rafikyum/AndroidStudioProjects/7MinuteWorkout/app/src/main/res/layout/activity_excerise.xml" value="0.1" />
+        <entry key="..\:/Users/rafikyum/AndroidStudioProjects/7MinuteWorkout/app/src/main/res/layout/activity_excerise.xml" value="0.5" />
         <entry key="..\:/Users/rafikyum/AndroidStudioProjects/7MinuteWorkout/app/src/main/res/layout/activity_finish.xml" value="0.25" />
         <entry key="..\:/Users/rafikyum/AndroidStudioProjects/7MinuteWorkout/app/src/main/res/layout/activity_history.xml" value="0.223731884057971" />
-        <entry key="..\:/Users/rafikyum/AndroidStudioProjects/7MinuteWorkout/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/Users/rafikyum/AndroidStudioProjects/7MinuteWorkout/app/src/main/res/layout/activity_main.xml" value="0.5" />
         <entry key="..\:/Users/rafikyum/AndroidStudioProjects/7MinuteWorkout/app/src/main/res/layout/dialog_custom_bacl_information.xml" value="0.3745471014492754" />
         <entry key="..\:/Users/rafikyum/AndroidStudioProjects/7MinuteWorkout/app/src/main/res/layout/item_exercise_status.xml" value="0.31476449275362317" />
+        <entry key="..\:/Users/rafikyum/AndroidStudioProjects/7MinuteWorkout/app/src/main/res/layout/item_history_row.xml" value="0.26393110435663625" />
       </map>
     </option>
   </component>
