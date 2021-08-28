@@ -10,20 +10,21 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.7MinuteWorkout">
         <activity
-            android:name=".BMIActivity"
-            android:exported="true"
+            android:name=".HistoryActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.NoActionBar" />
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"  />
+        <activity
+            android:name=".BMIActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.MaterialComponents"  />
         <activity
             android:name=".FinishActivity"
-            android:exported="true"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.NoActionBar" />
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".ExceriseActivity"
-            android:exported="true"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.NoActionBar" />
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity
             android:name=".MainActivity"
             android:exported="true"

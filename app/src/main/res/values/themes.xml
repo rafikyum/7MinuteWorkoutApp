@@ -14,7 +14,5 @@
         <!-- Customize your theme here. -->
     </style>
 
-    <style name="ToolbarTheme" parent="@style/ThemeOverlay.AppCompat">
-        <item name="colorControlNormal">@color/toolbar_colour</item>
-    </style>
+
 </resources>
